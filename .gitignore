@@ -1,2 +1,3 @@
 node_modules
 Office/AIOffice/.env
+.DS_Store

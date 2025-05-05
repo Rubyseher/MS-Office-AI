@@ -1,11 +1,11 @@
+import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./components/App";
-import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 
 /* global document, Office, module, require, HTMLElement */
 
-const title = "Contoso Task Pane Add-in";
+const title = "AI Office Add-in";
 
 const rootElement: HTMLElement | null = document.getElementById("container");
 const root = rootElement ? createRoot(rootElement) : undefined;

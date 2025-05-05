@@ -2,12 +2,12 @@
 
 var selectionEventResult;
 
-export async function insertText(text: string) {
+export async function insertText(insertRange: string, content: any[][]) {
   try {
     await Excel.run(async (context) => {
       const sheet = context.workbook.worksheets.getActiveWorksheet();
-      const range = sheet.getRange("A1");
-      range.values = [[text]];
+      const range = sheet.getRange(insertRange);
+      range.values = content;
       range.format.autofitColumns();
       await context.sync();
     });

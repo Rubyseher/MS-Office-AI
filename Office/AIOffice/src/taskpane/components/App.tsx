@@ -15,6 +15,16 @@ interface AppProps {
   title: string;
 }
 
+const SYSTEM_PROMPT = `You operate within Excel. All responses must be in the following format:
+{
+  "INSERT_VALUES": a row-major 2D array format,
+  "INSERT_ADDRESS": a string format for Excel,
+  "RESPONSE_TO_HUMAN": human-readable description of the content
+}
+
+Here is the currently selected range: 
+`;
+
 const useStyles = makeStyles({
   root: {
     minHeight: "100vh",
@@ -37,7 +47,7 @@ const App: React.FC<AppProps> = () => {
           {
             parts: [
               {
-                text: "Selected Range: " + JSON.stringify(selectedRange?.values),
+                text: SYSTEM_PROMPT + JSON.stringify(selectedRange),
               },
               {
                 text: prompt,
@@ -48,8 +58,9 @@ const App: React.FC<AppProps> = () => {
         ],
       });
       const generatedText = result.response.text() || "No response received.";
-      setResponse(generatedText);
-      insertText(generatedText); // Invoke TextInsertion with the response
+      const parsedResponse = getJSONFromResponse(generatedText);
+      setResponse(parsedResponse?.RESPONSE_TO_HUMAN || generatedText);
+      insertText(parsedResponse?.INSERT_ADDRESS || "", parsedResponse?.INSERT_VALUES || [[]]);
     } catch (error) {
       console.error("Error generating text:", error);
     }
@@ -66,20 +77,31 @@ const App: React.FC<AppProps> = () => {
   return (
     <div className={styles.root}>
       <div style={{ margin: "20px 0" }}>
+        <p>{response}</p>
         <p>{JSON.stringify(selectedRange)}</p>
         <Input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Enter your prompt here"
-          style={{ width: "80%", padding: "10px", fontSize: "16px" }}
+          placeholder="Ask AI"
         />
-        <Button onClick={handlePromptSubmit} style={{ marginLeft: "10px", padding: "10px 20px" }}>
-          Submit
-        </Button>
+        <Button onClick={handlePromptSubmit}>Submit</Button>
       </div>
     </div>
   );
 };
+
+function getJSONFromResponse(response: string): any {
+  try {
+    const cleanedResponse = response
+      .replace(/^```json\s*/, "")
+      .replace(/\s*\n*```$/, "")
+      .trim();
+    return JSON.parse(cleanedResponse);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return null;
+  }
+}
 
 export default App;
