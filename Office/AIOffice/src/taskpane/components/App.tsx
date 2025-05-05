@@ -1,7 +1,12 @@
 import { Button, Input, makeStyles } from "@fluentui/react-components";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as React from "react";
-import { insertText } from "../taskpane";
+import { useEffect } from "react";
+import {
+  insertText,
+  registerSelectionChangeHandler,
+  removeSelectionChangeHandler,
+} from "../taskpane";
 
 const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -20,6 +25,10 @@ const App: React.FC<AppProps> = () => {
   const styles = useStyles();
   const [prompt, setPrompt] = React.useState("");
   const [response, setResponse] = React.useState("");
+  const [selectedRange, setSelectedRange] = React.useState({
+    values: [[]],
+    address: "",
+  });
 
   const handlePromptSubmit = async () => {
     try {
@@ -27,6 +36,9 @@ const App: React.FC<AppProps> = () => {
         contents: [
           {
             parts: [
+              {
+                text: "Selected Range: " + JSON.stringify(selectedRange?.values),
+              },
               {
                 text: prompt,
               },
@@ -43,9 +55,18 @@ const App: React.FC<AppProps> = () => {
     }
   };
 
+  useEffect(() => {
+    registerSelectionChangeHandler(setSelectedRange);
+
+    return () => {
+      removeSelectionChangeHandler();
+    };
+  }, []);
+
   return (
     <div className={styles.root}>
       <div style={{ margin: "20px 0" }}>
+        <p>{JSON.stringify(selectedRange)}</p>
         <Input
           type="text"
           value={prompt}
