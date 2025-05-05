@@ -2,7 +2,6 @@ import { Button, Input, makeStyles } from "@fluentui/react-components";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as React from "react";
 import { insertText } from "../taskpane";
-import Header from "./Header";
 
 const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -17,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-const App: React.FC<AppProps> = (props: AppProps) => {
+const App: React.FC<AppProps> = () => {
   const styles = useStyles();
   const [prompt, setPrompt] = React.useState("");
   const [response, setResponse] = React.useState("");
@@ -46,7 +45,6 @@ const App: React.FC<AppProps> = (props: AppProps) => {
 
   return (
     <div className={styles.root}>
-      <Header logo="assets/logo-filled.png" title={props.title} message="Welcome" />
       <div style={{ margin: "20px 0" }}>
         <Input
           type="text"
