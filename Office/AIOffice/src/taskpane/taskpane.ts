@@ -1,11 +1,13 @@
-/* global Word console */
+/* global Excel console */
 
 export async function insertText(text: string) {
-  // Write text to the document.
+  // Write text to the top left cell.
   try {
-    await Word.run(async (context) => {
-      let body = context.document.body;
-      body.insertParagraph(text, Word.InsertLocation.end);
+    await Excel.run(async (context) => {
+      const sheet = context.workbook.worksheets.getActiveWorksheet();
+      const range = sheet.getRange("A1");
+      range.values = [[text]];
+      range.format.autofitColumns();
       await context.sync();
     });
   } catch (error) {
