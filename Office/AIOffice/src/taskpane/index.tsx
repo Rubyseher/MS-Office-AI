@@ -1,6 +1,7 @@
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
+import "../main.css";
 import App from "./components/App";
 
 /* global document, Office, module, require, HTMLElement */

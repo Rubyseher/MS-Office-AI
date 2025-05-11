@@ -78,12 +78,13 @@ const App: React.FC<AppProps> = () => {
     <div className={styles.root}>
       <div style={{ margin: "20px 0" }}>
         <p>{response}</p>
-        <p>{JSON.stringify(selectedRange)}</p>
+        <p className="bg-blue-200 p-2">{JSON.stringify(selectedRange)}</p>
         <Input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Ask AI"
+          className="ml-8"
         />
         <Button onClick={handlePromptSubmit}>Submit</Button>
       </div>

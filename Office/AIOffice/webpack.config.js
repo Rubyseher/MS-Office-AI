@@ -65,6 +65,14 @@ module.exports = async (env, options) => {
             filename: "assets/[name][ext][query]",
           },
         },
+        {
+          test: /\.css$/i,
+          use: [
+            "style-loader", // Injects CSS into DOM
+            "css-loader", // Resolves @import and url()
+            "postcss-loader", // Processes Tailwind and other PostCSS plugins
+          ],
+        },
       ],
     },
     plugins: [
