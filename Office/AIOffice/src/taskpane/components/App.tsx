@@ -1,5 +1,6 @@
 import {
   Button,
+  FluentProvider,
   Input,
   Spinner,
   Toast,
@@ -8,6 +9,8 @@ import {
   ToastTitle,
   useId,
   useToastController,
+  webDarkTheme,
+  webLightTheme,
 } from "@fluentui/react-components";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as React from "react";
@@ -17,6 +20,7 @@ import {
   registerSelectionChangeHandler,
   removeSelectionChangeHandler,
 } from "../taskpane";
+import useDarkMode from "./useDarkMode";
 
 const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -41,6 +45,7 @@ const App = () => {
   const [loading, setLoading] = React.useState(false);
   const toasterId = useId("toaster");
   const { dispatchToast } = useToastController(toasterId);
+  const { isDarkMode } = useDarkMode();
 
   const showToast = (
     title: string,
@@ -113,41 +118,49 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col h-screen bg-gray-50 p-4 gap-2">
+    <FluentProvider theme={!isDarkMode ? webLightTheme : webDarkTheme}>
+      <div className="flex flex-col h-screen p-4 gap-2">
         {!response ? (
-          <div className="flex flex-col items-center justify-center h-auto text-center p-4 my-auto bg-white rounded-md shadow-md">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+          <div className="flex flex-col items-center justify-center h-auto text-center p-4 my-auto bg-white dark:bg-gray-900 rounded-md shadow-md">
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
               Welcome to [Cheesy AI Generated Name Here]
             </h1>
-            <p className="text-gray-600 mb-6">Select a range and ask AI to:</p>
-            <ul className="text-gray-600 list-disc list-inside mb-6 text-start">
+            <p className="text-gray-600 dark:text-gray-200 mb-6">Select a range and ask AI to:</p>
+            <ul className="text-gray-600 dark:text-gray-200 list-disc list-inside mb-6 text-start">
               <li>Analyze your data</li>
               <li>Provide insights or summaries</li>
               <li>Generate formulas</li>
               <li>Suggest improvements</li>
               <li>[Other AI Generated things AI can do]</li>
             </ul>
-            <p className="text-gray-500 italic">Type your question below to get started!</p>
+            <p className="text-gray-500 dark:text-gray-300 italic">
+              Type your question below to get started!
+            </p>
           </div>
         ) : (
-          <div className="h-full">
-            <div className="bg-blue-100 p-4 rounded-lg shadow-md w-full max-w-lg mb-4">
-              <p className="text-blue-800 text-sm font-medium">{response}</p>
+          <div className="grow">
+            <span className="text-xs capitalize text-gray-500 dark:text-gray-300 tracking-wide">
+              AI Overlord Says:
+            </span>
+            <div className="response-container">
+              <p className="response-text">{response}</p>
             </div>
           </div>
         )}
         <div className="flex gap-2 self-end">
           <div className="grow-1">
-            <p className="bg-blue-100 p-2 w-full rounded-t-md text-xs text-blue-800 font-semibold capitalize tracking-wide">
-              {selectedRangeDescription}
-            </p>
+            <p className="selected-range">{selectedRangeDescription}</p>
             <Input
               type="text"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Ask AI"
               className="w-full"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handlePromptSubmit();
+                }
+              }}
             />
           </div>
           <Button
@@ -166,7 +179,7 @@ const App = () => {
           vertical: 128,
         }}
       />
-    </>
+    </FluentProvider>
   );
 };
 
