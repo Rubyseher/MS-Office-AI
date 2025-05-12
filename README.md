@@ -58,21 +58,22 @@ Before you begin, make sure you have:
 2. **Interact with the AI panel** by asking questions or requesting transformations.
 3. The AI can **insert, replace, or update content** directly in your spreadsheet.
 
-## 🧩 Extending to Other Apps
-
-This repository is designed to support:
-
-- ✅ **Excel** (currently supported)
-- 🔜 **Word**, **Outlook**, **PowerPoint** (planned – feel free to contribute!)
-
 ## 🗂️ Project Structure
 
 The `src/taskpane` folder contains the main source code for the task pane:
 
 - **components/**: React components used in the task pane UI.
+  - **App.tsx**: Where the magic happens
 - **index.tsx**: Entry point for rendering the React application.
 - **taskpane.ts**: Contains Excel-related logic and event handlers.
-- **taskpane.html**: HTML file for the task pane.
+
+## 📝 TODO
+
+- [ ] Add support for multiple LLMs (e.g., OpenAI's ChatGPT).
+- [ ] Extend functionality to **Word** and **PowerPoint**.
+- [ ] Display chat history in the UI
+- [ ] ! Undo button
+- [ ] `ContextWindowMemory`
 
 ## 🤝 Contributing
 
@@ -87,8 +88,3 @@ To contribute:
 1. Fork the repository.
 2. Create a new branch for your feature or fix.
 3. Submit a pull request with a detailed description.
-
-## 📝 TODO
-
-- [ ] Add support for multiple LLMs (e.g., OpenAI's ChatGPT).
-- [ ] Extend functionality to **Word** and **PowerPoint**.
