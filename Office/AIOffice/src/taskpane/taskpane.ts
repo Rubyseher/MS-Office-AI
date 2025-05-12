@@ -2,18 +2,14 @@
 
 var selectionEventResult;
 
-export async function insertText(insertRange: string, content: any[][]) {
-  try {
-    await Excel.run(async (context) => {
-      const sheet = context.workbook.worksheets.getActiveWorksheet();
-      const range = sheet.getRange(insertRange);
-      range.values = content;
-      range.format.autofitColumns();
-      await context.sync();
-    });
-  } catch (error) {
-    console.log("Error: " + error);
-  }
+export async function insertText(insertRange: string, content: any[][]): Promise<void> {
+  return Excel.run(async (context) => {
+    const sheet = context.workbook.worksheets.getActiveWorksheet();
+    const range = sheet.getRange(insertRange);
+    range.values = content;
+    range.format.autofitColumns();
+    await context.sync();
+  });
 }
 
 export const registerSelectionChangeHandler = async (setSelectedRange) => {

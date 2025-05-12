@@ -6,8 +6,6 @@ import App from "./components/App";
 
 /* global document, Office, module, require, HTMLElement */
 
-const title = "AI Office Add-in";
-
 const rootElement: HTMLElement | null = document.getElementById("container");
 const root = rootElement ? createRoot(rootElement) : undefined;
 
@@ -15,7 +13,7 @@ const root = rootElement ? createRoot(rootElement) : undefined;
 Office.onReady(() => {
   root?.render(
     <FluentProvider theme={webLightTheme}>
-      <App title={title} />
+      <App />
     </FluentProvider>
   );
 });
