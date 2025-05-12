@@ -76,5 +76,5 @@ To contribute:
 
 ## 📝 TODO
 
-- [] Add support for multiple LLMs (e.g., OpenAI's ChatGPT).
-- [] Extend functionality to **Word** and **PowerPoint**.
+- [ ] Add support for multiple LLMs (e.g., OpenAI's ChatGPT).
+- [ ] Extend functionality to **Word** and **PowerPoint**.
