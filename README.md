@@ -6,6 +6,20 @@
 A lightweight Office Add-in that integrates Google Gemini directly into Excel.  
 This repo can easily be extended to add support for OpenAI's ChatGPT and other LLMs, as well as Word, Powerpoint and other Office apps.
 
+## Example Usage and Screenshots
+<div style="max-width: 48rem;">
+
+<span><strong>1. Generating a list of bank transactions to demo the AI in action</strong></span>
+<img src="assets/screenshots/4.png" alt="Screenshot 1" />
+
+<span><strong>2. Prompting the AI to categorize the transactions</strong></span>
+<img src="assets/screenshots/5.png" alt="Screenshot 2" />
+
+<span><strong>3. Summarizing the categories</strong></p>
+<img src="assets/screenshots/6.png" alt="Screenshot 3" />
+
+</div>
+
 ## 🚀 Features
 
 - 🔌 **Out-of-the-box support for Google Gemini**. Feel free to open a PR to add ChatGPT or other LLMs.
