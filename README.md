@@ -36,10 +36,22 @@ Follow these steps to get started:
 git clone https://github.com/menahishayan/MS-Office-AI
 cd MS-Office-AI
 ```
-Add your API key in a `.env` file at the root level
+Add your API key in a `.env` file at the root level.  
+Then install dependencies:
 ```bash
 npm install
-npm run start
+```
+The webpack bundler must be running the entire time you develop (for HMR reasons):
+```bash
+npm run dev-server
+```
+To install it on a local verion of Excel:
+```bash
+npm start 
+```
+To test on a web version of Excel:
+```bash
+npm run start -- web --document {url}
 ```
 
 > **Note:** Ensure you have [Office Add-in development tools](https://learn.microsoft.com/office/dev/add-ins/overview/office-add-ins) installed and sideloading enabled in Excel.
