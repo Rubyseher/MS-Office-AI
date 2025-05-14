@@ -74,6 +74,7 @@ The `src/taskpane` folder contains the main source code for the task pane:
 - [ ] Display chat history in the UI
 - [ ] ! Undo button
 - [ ] `ContextWindowMemory`
+- [ ] Make prompt input multi-line
 
 ## 🤝 Contributing
 
