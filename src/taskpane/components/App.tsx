@@ -113,10 +113,10 @@ const App = () => {
 
       await insertText(parsedResponse?.INSERT_ADDRESS || "", parsedResponse?.INSERT_VALUES || [[]])
         .then(() => {
-          showToast("Success!", "AI has updated your spreadsheet", "success");
+          showToast("Merlin's Beard!", "It worked! Now what?", "success");
         })
         .catch((error) => {
-          showToast("Error", error.toString(), "error");
+          showToast("Ughhhhhhh", error.toString(), "error");
         });
     } catch (error) {
       console.error("Error generating text:", error);
@@ -201,7 +201,7 @@ const App = () => {
         ) : !apiKey ? (
           <div className="flex flex-col items-center justify-center h-auto text-center p-6 my-auto bg-white dark:bg-gray-900 rounded-lg shadow-md">
             <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">
-              Welcome to Excel AI Assistant
+               Welcome to [Cheesy AI Generated Name Here]
             </h2>
             <p className="text-gray-600 dark:text-gray-200 mb-6">
               To get started, you need to set up your Google Gemini API key.
@@ -232,10 +232,10 @@ const App = () => {
             <p className="text-gray-600 dark:text-gray-200 mb-6">Select a range and ask AI to:</p>
             <ul className="text-gray-600 dark:text-gray-200 list-disc list-inside mb-6 text-start">
               <li>Analyze your data</li>
-              <li>Generate insights and summaries</li>
-              <li>Create formulas and calculations</li>
-              <li>Fill in missing data</li>
-              <li>Categorize and organize information</li>
+              <li>Provide insights or summaries</li>
+              <li>Generate formulas</li>
+              <li>Suggest improvements</li>
+              <li>[Other AI Generated things AI can do]</li>
             </ul>
             <p className="text-gray-500 dark:text-gray-300 italic">
               Type your question below to get started!
@@ -244,7 +244,7 @@ const App = () => {
         ) : (
           <div className="grow">
             <span className="text-xs capitalize text-gray-500 dark:text-gray-300 tracking-wide">
-              AI Assistant Says:
+              AI Overlord Says:
             </span>
             <div className="response-container bg-gray-50 dark:bg-gray-800 p-3 rounded-md mt-1">
               <p className="response-text text-sm">{response}</p>
